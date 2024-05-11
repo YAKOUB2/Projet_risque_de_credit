@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page 1</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #cee8fa; /* Fond bleu */
+        }
+        .container {
+            display: flex;
+            max-width: 1200px; /* Ajustement de la largeur */
+            margin: 50px auto;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .sidebar {
+            width: 300px;
+            background-color: #f2f2f2;
+            color: #333;
+            padding: 20px;
+            text-align: center;
+        }
+        .content {
+            flex: 1;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            margin-top: 20px;
+            display: flex;
+            flex-wrap: wrap;
+        }
+        label {
+            margin-bottom: 5px;
+            color: #666;
+            display: inline-block;
+        }
+        input[type="checkbox"] {
+            margin-right: 10px;
+        }
+        input[type="submit"] {
+            width: 100%;
+            background-color: #ccc;
+            color: #333;
+            border: none;
+            padding: 8px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #999;
+        }
+        .logo {
+            width: 150px;
+            height: auto;
+            margin-bottom: 20px;
+            cursor: pointer;
+        }
+        .sidebar a {
+            display: block;
+            color: #333;
+            text-decoration: none;
+            padding: 8px;
+            margin-bottom: 10px;
+            background-color: #f2f2f2;
+            border-radius: 4px;
+            text-align: center;
+        }
+        .sidebar a:hover {
+            background-color: #ddd;
+        }
+        /* Style pour les titres des images */
+        .image-title {
+            text-align: center;
+            font-size: 16px; /* Taille de police plus petite */
+            margin-bottom: 10px; /* Marge inférieure pour l'espace */
+        }
+        .image-category {
+            margin-top: 20px; /* Espacement entre les catégories d'images */
+        }
+        .image-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-top: 10px; /* Espacement entre les images */
+        }
+        .image-container img {
+            width: 300px; /* Ajustement de la largeur des images */
+            height: auto; /* Pour conserver les proportions */
+            margin-bottom: 10px; /* Espacement entre les images */
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="sidebar">
+        <a href="form.html"><img class="logo" src="{{ url_for('static', filename='logo/nexialog.png') }}" alt="Nexialog Logo"></a>
+        <a href="page2.html">Graphiques de Stabilité</a>
+        <a href="score_grid.html">Grille de Score</a>
+    </div>
+    <div class="content">
+        <h1>Stabilité en Risque et Fréquences</h1>
+        <h2>Variables à sélectionner :</h2>
+        <form id="variables-form">
+            <div>
+                <input type="checkbox" id="date_naissance" name="variables" value="Date_naissance">
+                <label for="date_naissance">Date de naissance</label>
+            </div>
+            <div>
+                <input type="checkbox" id="genre" name="variables" value="Genre">
+                <label for="genre">Genre</label>
+            </div>
+            <div>
+                <input type="checkbox" id="amt_annuity" name="variables" value="AMT_ANNUITY">
+                <label for="amt_annuity">Montant de l'annuité</label>
+            </div>
+            <div>
+                <input type="checkbox" id="amt_income" name="variables" value="AMT_INCOME">
+                <label for="amt_income">Revenu</label>
+            </div>
+            <div>
+                <input type="checkbox" id="ext_source" name="variables" value="EXT_SOURCE">
+                <label for="ext_source">Source externe</label>
+            </div>
+            <div>
+                <input type="checkbox" id="type_contrat" name="variables" value="Type de contrat">
+                <label for="type_contrat">Type de contrat</label>
+            </div>
+        </form>
+        <div id="image-container"></div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const form = document.getElementById('variables-form');
+  const imageContainer = document.getElementById('image-container');
+  
+  form.addEventListener('change', function() {
+    let imagesToDisplay = [];
+
+    // Vérifier chaque case cochée et ajouter l'image correspondante à la liste
+    if(document.getElementById('date_naissance').checked) {
+      imagesToDisplay.push({ title: 'Date de naissance', images: ['static/Photo/Days_birth_freq.jpeg', 'static/Photo/days_birth_risque.jpeg'] });
+    }
+    if(document.getElementById('genre').checked) {
+      imagesToDisplay.push({ title: 'Genre', images: ['static/Photo/Code_gender_freq.jpeg', 'static/Photo/code_gender_risque.jpeg'] });
+    }
+    if(document.getElementById('amt_annuity').checked) {
+      imagesToDisplay.push({ title: 'Montant de l\'annuité', images: ['static/Photo/AMT_Annuity_freq.jpeg', 'static/Photo/AMT_Annuity_risque.jpeg'] });
+    }
+    if(document.getElementById('amt_income').checked) {
+      imagesToDisplay.push({ title: 'Revenu', images: ['static/Photo/AMT_credit_freq.jpeg', 'static/Photo/AMT_credit_risque.jpeg'] });
+    }
+    if(document.getElementById('ext_source').checked) {
+      imagesToDisplay.push({ title: 'Source externe', images: ['static/Photo/source_ext_freq.jpeg', 'static/Photo/source_ext_risque.jpeg'] });
+    }
+    if(document.getElementById('type_contrat').checked) {
+      imagesToDisplay.push({ title: 'Type de contrat', images: ['static/Photo/Name_contract_type_freq.jpeg', 'static/Photo/Name_contract_type_risque.jpeg'] });
+    }
+    
+    // Afficher les images
+    displayImages(imagesToDisplay);
+  });
+
+  function displayImages(imagesArray) {
+    // Effacer les images précédentes
+    imageContainer.innerHTML = '';
+
+    imagesArray.forEach(function(group) {
+      // Créer un titre pour le groupe
+      const title = document.createElement('h2');
+      title.textContent = group.title;
+      imageContainer.appendChild(title);
+
+      // Créer un conteneur pour les images de ce groupe
+      const categoryContainer = document.createElement('div');
+      categoryContainer.classList.add('image-category');
+      imageContainer.appendChild(categoryContainer);
+
+      // Ajouter chaque image du groupe
+      group.images.forEach(function(imageName) {
+        const img = document.createElement('img');
+        img.src = imageName; // Chemin relatif à partir du dossier actuel
+        img.alt = imageName.split('/').pop(); // Utiliser juste le nom de fichier pour le texte alternatif
+        img.style.width = '350px'; // Largeur des images
+        img.style.height = 'auto'; // Pour conserver les proportions
+        img.style.marginBottom = '10px'; // Espacement entre les images
+        img.style.borderRadius = '5px'; // Coins arrondis
+        img.style.boxShadow = '0 0 5px rgba(0, 0, 0, 0.1)'; // Ombre légère
+        categoryContainer.appendChild(img);
+      });
+    });
+  }
+});
+</script>
+ 
+</body>
+</html>
